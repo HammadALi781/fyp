@@ -144,33 +144,16 @@ if(!$con)
 		</div>
 	</section>
 <?php                                          
-$uid = $_GET['uid'];                  
-$select="select * from sub_catagories where movie_name = '$uid'";
-$resmovie=mysqli_query($con,$select);
-$ressc=mysqli_query($con,$select);
-$score = mysqli_num_rows($resmovie);
-$datacat = mysqli_fetch_array($resmovie);
-if($score==""){
-  echo'<b><div class="alert alert-danger" role="alert">
-Ticket price for this movie has not been added.Select other movie<a href="http://localhost/php_ticket_booking/Movie/movies.php">See Movies</a>   
-</div></b>';
-}
+               
 if($_POST)
 {
-$catagory = $_POST['movie']; 
-$cinema = $_POST['cinema'];
-$name = $_POST['name'];
-$phone = $_POST['pnumber'];
+$name = $_POST['name']; 
+$method = $_POST['method'];
+$card = $_POST['card'];
 $cnic = $_POST['cnic'];
-$address = $_POST['address'];
+$code = $_POST['code'];
 $price = $_POST['price'];
-$date = $_POST['date'];
-$seat = $_POST['seats'];
-$na = $_POST['netamount'];
-$_SESSION['name']= $name;
-$_SESSION['netamount']= $na;
-$_SESSION['cnic']= $cnic;
-$insert = "insert into product(movie,cinema,name,phone,cnic,address,price,date,seat,net_amount) values ('$catagory','$cinema','$name','$phone','$cnic','$address','$price','$date','$seat','$na')";
+$insert = "insert into payments(name,method,card_number,pin,cnic,amount) values ('$name','$method','$card','$code','$cnic','$price')";
 $res = mysqli_query($con, $insert);
 if(!$res)
 {
@@ -178,77 +161,55 @@ if(!$res)
 }
 else
 {
-
-  header("location:paybill.php");
-
+?>
+  <script>alert ('Purchasing Done')</script>
+  <?php
 }
 /*}*/
 }
 ?>
 	<div class="container">
-		<h1 class="text-center pt-4 ">Book you Ticket From Here</h1>
+		<h1 class="text-center pt-4 ">Pay Amount</h1>
 		<section class="mt-4 mb-4">
 			<form role="form" method="post">
 				<div class="form-row">
 					<div class="form-group col-md-6">
-						<label for="inputEmail4">Movie</label>
-						<input type="text" name="movie" class="form-control"  
-                            id="movie_name" value="<?php echo $datacat['movie_name']; ?>" required>
+						<label for="inputEmail4">Name</label>
+						<input type="text" name="name" class="form-control"  
+                             value="<?php echo $_SESSION['name']; ?>" required>
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputPassword4">Cinema</label>
-							<select name="cinema" class="form-control" id="catagory_name" onchange="getrates();">
-                 <option>Select Cinema</option>
-                <?php while($datac = mysqli_fetch_array($ressc))
-                { ?>
-                    <option value="<?php echo $datac['cinema']; ?>"><?php echo $datac['cinema']; ?> </option>
-                            <?php } ?>
+							<select name="method" class="form-control">
+                 <option value="Jazz Cash">Jazz Cash</option>
+                 <option value="Jazz Cash">HBL</option>
              </select>
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="inputAddress">Name</label>
-						<input type="text" name="name" class="form-control"  
-                                          placeholder="Enter Your Name" value="<?php if (isset($name)) echo $name; ?>" required>
-				</div>
-				<div class="form-group">
-					<label for="inputAddress2">Phone number</label>
-						<input type="number" name="pnumber" class="form-control"  
-                                          placeholder="Enter Phone number" value="<?php if (isset($phone)) echo $phone; ?>" required>
+					<label for="inputAddress">Card Number</label>
+						<input type="number" name="card" class="form-control"  
+                                          placeholder="Enter Card number"  required>
+        				<div class="form-group">
+					<label for="inputAddress">Code</label>
+						<input type="number" name="code" class="form-control"  
+                                          placeholder="Card Pin"  required>
 				</div>
 				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="inputCity">CNIC</label>
 						<input type="number" name="cnic" class="form-control"  
-                                          placeholder="Enter Your CNIC number" value="<?php if (isset($cnic)) echo $cnic; ?>" required>
+                                          placeholder="Enter Your CNIC number" value="<?php echo $_SESSION['cnic']; ?>" required>
 					</div>
-					<div class="form-group col-md-4">
-						<label for="inputState">address</label>
-							<textarea type="text" value="<?php if (isset($address)) echo $address; ?>"  name="address" class="form-control" placeholder="Address"></textarea>
-					</div>
+
 					<div class="form-group col-md-2">
 						<label for="inputZip">Price</label>
 						              <input type="number" name="price" class="form-control" id="price"  
-                       value="<?php if (isset($pp)) echo $pdd; ?>"required>
-					</div>
-					<div class="form-group col-md-2">
-						<label for="inputZip">Date</label>
-						              <input type="date" name="date" class="form-control" id="date"  
-                       value=""required>
-					</div>
-					<div class="form-group col-md-2">
-						<label for="inputZip">Seats</label>
-						              <input type="number" name="seats" class="form-control"  id="rs"
-                    onKeyUp="addvalues(this)" placeholder="Enter deduction" value="<?php if (isset($pdd)) echo $pdd; ?>" required>
-					</div>
-					<div class="form-group col-md-2">
-						<label for="inputZip">Net Total</label>
-						              <input type="number" name="netamount" class="form-control"  id="netprice"
-                                          placeholder="Total after deduction" value="<?php if (isset($na)) echo $na; ?>" required>
-					</div>															
+                       value="<?php echo $_SESSION['netamount']; ?>"required>
+					</div>											
 				</div>
 				
-				<button type="submit" class="btn btn-primary text-center ">Sign in</button>
+				<button type="submit" class="btn btn-primary text-center ">PayNow</button>
 			</form>
 		</section >
 	</div>
@@ -267,38 +228,5 @@ else
 	<script src="assets/js/isotope.pkgd.min.js"></script>
 	<!-- main JS -->
 	<script src="assets/js/main.js"></script>
-	               <script>
-      function addvalues(qty){
-        
-        var PerSeatPrice = document.getElementById('price').value;
-        //var pweight = document.getElementById('pw').value;
-        var qty1 = qty.value;
-       // var totaldeduction = qty.value;
-        var totalprice = parseFloat(PerSeatPrice) * parseFloat(qty1);
-        if(qty1 == ""){
-          document.getElementById('netprice').value = 0;          
-          }else{
-          document.getElementById('netprice').value = totalprice;
-            }
-        }
-
-        function getrates(){
-          let catName = $("#catagory_name").val();
-          let movieName = $("#movie_name").val();
-
-            $.ajax({
-                   type: "POST",
-                   url: "select_price.php",
-                   data: ({name: catName,movie: movieName}),
-                   dataType: "json",
-                   success: function(response) {
-                   // show response for success
-                   console.log(response.id, response.Field_name);
-                   document.getElementById('price').value= response.price;
-                  // document.getElementById('pdeduction').value=$deduction_kg;
-                    }
-                 });
-          }
-    </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
         <!-- header logo: style can be found in header.less -->
         <header class="header">
             <a href="index.php" class="logo">
-                Demo Cenima
+                Sheroz cenima
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
@@ -15,8 +15,6 @@
                 <div class="navbar-right">
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
-
-
 
                         <?php
                         $select = "select count(*) from messages";

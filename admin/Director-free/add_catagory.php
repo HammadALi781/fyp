@@ -21,7 +21,7 @@
                             <form role="form" method="post">
                                 <div class="form-group col-lg-7 col-sm-7">
                                     <label>Movie Name</label>
-                                    <input type="text" name="catname" class="form-control" placeholder="Enter Field name" required>
+                                    <input type="text" name="catname" class="form-control" placeholder="Enter Movie name" required>
                                     <label>Movie Time</label>
                                     <input type="time" name="time" class="form-control" placeholder="Enter Movie Time " required>
                                     <label for="exampleInputEmail1">Choose image</label>

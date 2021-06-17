@@ -15,17 +15,11 @@
         $select = "select count(*) from ordor";
         $ress = mysqli_query($con, $select);
         $count = mysqli_fetch_array($ress);
-
-        // $orders=mysqli_num_rows($ress);
-
-
         ?>
-
-
         <section class="content">
 
-           <h1 class='text-center' style="margin-top:300px">Welcome To Dashboard</h1>
-                <!-- row end -->
+            <h1 class='text-center' style="margin-top:300px">Welcome To Dashboard</h1>
+            <!-- row end -->
         </section><!-- /.content -->
     </aside><!-- /.right-side -->
 

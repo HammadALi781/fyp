@@ -12,7 +12,7 @@
                                 </div> -->
                                 <div class="pull-left info">
                                     <p>Hello, <?php echo $datauser['username']; ?></p>
-                                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                                    <a href="#"><i class="fa fa-circle text-success"></i> Onlines</a>
                                 </div>
                             </div>
                             <!-- search form -->
@@ -54,6 +54,11 @@
                                 <li>
                                     <a href="manage_product.php">
                                         <i class="fa fa-gavel"></i> <span>Manage Booking</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="testing.php">
+                                        <i class="fa fa-gavel"></i> <span>Manage FYP</span>
                                     </a>
                                 </li>
 
